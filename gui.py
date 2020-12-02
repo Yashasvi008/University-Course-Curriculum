@@ -2,8 +2,7 @@
 """
 @author: Yashasvi
 """
-# Python program to create 
-# a file explorer in Tkinter 
+
 
 import tkinter as tk 
 from tkinter import filedialog 
