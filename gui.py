@@ -3,7 +3,6 @@
 @author: Yashasvi
 """
 
-
 import tkinter as tk 
 from tkinter import filedialog 
 from tkinter import messagebox 
@@ -11,6 +10,7 @@ from main1 import readcsv
 from main1 import Graph
 from main1 import Course
 import traceback
+from PIL import ImageTk, Image 
 
 class Run_File:
     input_filename = ''
@@ -23,10 +23,9 @@ class Run_File:
         else:
                 print("No cycle detected, Semester plan is possible!")
                 messagebox.showinfo("No cycle detected", "Input file is correct, Semester plan is possible!")
-                btn_viewplan = tk.Button(window, text = "View Semester Plan", command = Run_File.plan_courses)
-                btn_viewplan.grid(column= 0, row = 3, pady = 10)
+                btn_viewplan = tk.Button(window, text = "View Semester Plan",bg='#674846', fg='white', command = Run_File.plan_courses)
+                btn_viewplan.place(relx=0.34,rely=0.6, relwidth=0.30,relheight=0.097)
 
-        
     
     @staticmethod
     def plan_courses():
@@ -52,11 +51,11 @@ class Run_File:
         result = tk.Tk()
         result.title("University Course Curriculum") 
       
-        # set the configuration of GUI window 
+        # setting the configuration of GUI window 
         result.geometry("2000x1000") 
         
         heading = tk.Label(result, text = "Proposed Course Curriculum", 
-                              font=('calibre', 12))
+                              font=('calibre', 16))
         
         heading.grid(row=0,padx=50,pady=10)
         
@@ -69,7 +68,6 @@ class Run_File:
             # insert elements by their index and names.
             for i,crsid in enumerate(sem):
                 listbox.insert(i, Run_File.g.idmap[crsid].title + "    " + Run_File.g.idmap[crsid].name)
-                
             listboxes.append(listbox)
             
             
@@ -127,8 +125,6 @@ class Add_new_Course:
             error_detail = "Exception {} Traceback {}".format(str(ex), traceback.format_exc())
             messagebox.showwarning("Invalid Input", "Please enter Valid Course details!\n" + error_detail)
             print(error_detail)
-            
-            
             
     
     @staticmethod
@@ -199,7 +195,6 @@ class Add_new_Course:
                
         # placing the label and entry in 
         # the required position using grid 
-        # method 
         name_label.grid(row=0,column=0) 
         Add_new_Course.name_entry.grid(row=0,column=1) 
         title_label.grid(row=1,column=0) 
@@ -230,25 +225,29 @@ window = tk.Tk()
 window.title('University Course Curriculum') 
 
 # Set window size 
-window.geometry("950x500") 
+window.geometry("800x600") 
 
-#Set window background color 
-window.config(background = "#CDE3F7") 
+#Set the backgrpund image  
+image1 = Image.open("C:/Users/Yashasvi/UniCourseCurr/bg.jpg")
+test = ImageTk.PhotoImage(image1)
+
+label1 = tk.Label(image=test)
+label1.image = test
+
+# Position image
+label1.place(x=0,y=0)
 
 # Create a File Explorer label 
-label_file_explorer = tk.Label(window, text = "Select input file containing courses and their details", width = 60, height = 4, fg = "blue") 
-label_file_explorer.config(font=("Courier", 20))
+label_file_explorer = tk.Label(window, text = "Select input file containing courses and their details", width = 60, height = 3, fg = "white",bg="#674846",bd="10") 
+label_file_explorer.config(font=("Courier", 15))
+label_file_explorer.place(x=0,y=0,relwidth=1)
 
-button_explore = tk.Button(window, text = "Browse Files", command = Run_File.browseFiles)
+button_explore = tk.Button(window, text = "Browse Files", bg='#674846', fg='white', command = Run_File.browseFiles)
+button_explore.place(relx=0.34,rely=0.4, relwidth=0.30,relheight=0.097)
 print(Run_File.input_filename)
 
-btn_addcrs = tk.Button(window, text = "Add new course", command = Add_new_Course.newCourse)
+btn_addcrs = tk.Button(window, text = "Add new course",  bg='#674846', fg='white', command = Add_new_Course.newCourse)
+btn_addcrs.place(relx=0.34,rely=0.5, relwidth=0.30,relheight=0.097)
 
-# Specifying positions
-label_file_explorer.grid(column = 0, row = 0) 
-    
-button_explore.grid(column = 0, row = 1, pady=10) 
-btn_addcrs.grid(column= 0, row = 2, pady = 10)
-        
-# Let the window wait for any events 
 window.mainloop()
+
