@@ -27,7 +27,8 @@ class Graph(object):
   
     # function to add an edge to graph 
     def addEdge(self,u,v):
-        self.graph[u].append(v) 
+        self.graph[u].append(v)
+        print(self.graph)
         
     def addcourse(self,newcrs):
         length = len(newcrs)-5
@@ -53,9 +54,9 @@ class Graph(object):
                 curr_credits = 0
                 sem_split_index.append(i)
                 
-        sems = [stack[i : j] for i, j in zip([0] + 
+            sems = [stack[i : j] for i, j in zip([0] + 
           sem_split_index, sem_split_index + [None])] 
-        
+        print(sems)
         return sems 
         
       
@@ -106,15 +107,15 @@ class Graph(object):
         rec_stack[x] = 1
         for i in range(len(self.graph[x])):
             if not visited[self.graph[x][i]] and self.dfs(self.graph[x][i], visited, rec_stack):
+                print("cycle detected", self.graph[x][i])
                 return 1
             elif rec_stack[self.graph[x][i]]:
+                print("cycle detected", self.graph[x][i])
                 return 1
         rec_stack[x] = 0 
         return 0
   
 
-    
- 
 import csv 
 # opening the file using "with" to ensure automatic closing
 def readcsv(input_filename):
@@ -141,11 +142,4 @@ def readcsv(input_filename):
                     g.addEdge(crsid, int(row[j+5]))            
        return g
                 
-   
-
-    
-            
- 
-    
-    
-    
+       
